@@ -1,6 +1,10 @@
 # **commit-analyzer**
 
 ---
+
+See https://github.com/Clearcover/semantic-release-github-config/blob/8f2864bc97ce51522afe93db15c8f12729c44b27/index.js#L58 as an alternative way of forking this repo
+by using release rules.
+
 Forked by Clearcover to add the following behaviour:
   * If there are commits by the logs do not match any predefined style, fall back to performing a patch release.
 ---

@@ -110,3 +110,30 @@ test('Return "null" for release type if the matching rule has "release" set to "
 
   t.is(analyzeCommit([{type: 'fix', release: null}], commit), null);
 });
+
+test('Fallback to patch if no commits match any preferred style', (t) => {
+  const feat = {type: 'feat'};
+  const noMatch = {type: null};
+
+  const rules = [
+    { type: 'feat', release: 'minor' },
+    { type: 'feature', release: 'minor' },
+    { type: 'fix', release: 'patch' },
+    {
+      type: 'perf',
+      release: 'patch'
+    },
+    { type: 'revert', release: 'patch' },
+    { type: 'docs', release: 'patch' },
+    { type: 'style', release: 'patch' },
+    { type: 'chore', release: 'patch' },
+    { type: 'refactor', release: 'patch' },
+    { type: 'test', release: 'patch' },
+    { type: 'build', release: 'patch' },
+    { type: 'ci', release: 'patch' },
+    { type: null, release: 'patch' }
+  ]
+
+  t.is(analyzeCommit(rules, noMatch), 'patch');
+  t.is(analyzeCommit(rules, feat), 'minor');
+});
